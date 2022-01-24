@@ -1,0 +1,20 @@
+COMMAND:
+  - service_sqlalchemy.cli.subcmds.migrate:Alembic
+WEBSERVER:
+  middlewares:
+    service_webserver.core.middlewares.openapi3:OpenApi3Middleware:
+      root_path:
+    service_prometheus.core.middlewares.prometheus:PrometheusMiddleware:
+CONSUL:
+  prod:
+    connect_options:
+      debug: true
+      data_center: hz
+      base_url: http://127.0.0.1:8500
+      acl_token: 6603ad56-7f8c-5790-7fc0-e66e86993737
+SQLALCHEMY:
+  prod:
+    engine_options:
+      url: mysql+pymysql://username:password@127.0.0.1:3306/cmdb?charset=utf8mb4
+    migrate_options:
+      script_location: alembic/prod
